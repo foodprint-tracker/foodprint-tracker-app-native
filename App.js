@@ -6,6 +6,8 @@ import Moment from 'moment';
 import { graphql, ApolloProvider, Query } from 'react-apollo';
 import gql from "graphql-tag";
 import ReceiptListComponent from './ReceiptListComponent';
+import ReceiptItemsListComponent from './ReceiptItemsListComponent';
+import ReceiptItemIngredientsComponent from './ReceiptItemIngredientsComponent';
 
 const ApolloBoost = require('apollo-boost');
 const ApolloClient = ApolloBoost.default;
@@ -101,6 +103,7 @@ class HomeScreen extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView style={styles.screen}>
         <View style={styles.profileInfo}>
@@ -113,7 +116,7 @@ class HomeScreen extends React.Component {
           {this.data.statItems.map(item => this.renderStatItem(item))}
         </View>
         <View style={styles.logEntries}>
-          <ReceiptListComponent />
+          <ReceiptListComponent navigate={navigate} />
         </View>
       </ScrollView>
     );
@@ -182,11 +185,35 @@ let styles = RkStyleSheet.create(theme => ({
 }));
 
 class ReceiptScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    const { navigate } = this.props.navigation;
+    const { receipt } = this.props.navigation.state.params;
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Receipt Screen</Text>
-      </View>
+      <ScrollView style={styles.screen}>
+        <View style={styles.logEntries}>
+          <ReceiptItemsListComponent navigate={navigate} receipt={receipt} />
+        </View>
+      </ScrollView>
+    );
+  }
+}
+
+class ReceiptItemScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const { navigate } = this.props.navigation;
+    const { receiptItem } = this.props.navigation.state.params;
+    return (
+      <ScrollView style={styles.screen}>
+        <View style={styles.logEntries}>
+          <ReceiptItemIngredientsComponent navigate={navigate} receiptItem={receiptItem} />
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -195,6 +222,7 @@ const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Receipt: ReceiptScreen,
+    ReceiptItem: ReceiptItemScreen
   },
   {
     initialRouteName: 'Home',

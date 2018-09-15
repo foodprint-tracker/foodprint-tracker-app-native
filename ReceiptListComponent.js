@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ScrollView, View, Image } from 'react-native';
+import { Button, ScrollView, View, Image, TouchableHighlight } from 'react-native';
 import { FETCH_RECEIPTS } from './queries';
 import { graphql, Query } from 'react-apollo';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
@@ -21,7 +21,7 @@ const styles = RkStyleSheet.create(theme => ({
   }
 }));
 
-const ReceiptListComponent = () => {
+const ReceiptListComponent = (props) => {
   return (<Query query={FETCH_RECEIPTS}>
     {({loading, error, data}) => {
       //Show an alert if there is an error
@@ -57,14 +57,20 @@ const ReceiptListComponent = () => {
       return (
         <View>
           {receipts.map(receipt => (
-            <View style={styles.logEntry} key={receipt.id}>
-              <RkText style={styles.logEntryValue}>
-                {receipt.shop} ({receipt.currency} {receipt.totalPrice})
-              </RkText>
-              <RkText style={styles.logEntryDate}>
-                {Moment(receipt.timestamp).format('MMMM DD, YYYY')}
-              </RkText>
-            </View>
+            <TouchableHighlight
+              key={receipt.id}
+              onPress={() =>
+                props.navigate('Receipt', { receipt: receipt })
+              }>
+              <View style={styles.logEntry}>
+                <RkText style={styles.logEntryValue}>
+                  {receipt.shop} ({receipt.currency} {receipt.totalPrice})
+                </RkText>
+                <RkText style={styles.logEntryDate}>
+                  {Moment(receipt.timestamp).format('MMMM DD, YYYY')}
+                </RkText>
+              </View>
+            </TouchableHighlight>
           ))}
         </View>
       );
