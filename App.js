@@ -3,8 +3,9 @@ import { Button, ScrollView, View, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
 import Moment from 'moment';
-import { ApolloProvider } from 'react-apollo';
+import { graphql, ApolloProvider, Query } from 'react-apollo';
 import gql from "graphql-tag";
+import ReceiptListComponent from './ReceiptListComponent';
 
 const ApolloBoost = require('apollo-boost');
 const ApolloClient = ApolloBoost.default;
@@ -12,22 +13,6 @@ const ApolloClient = ApolloBoost.default;
 const client = new ApolloClient({
   uri: "http://5481fb4e.ngrok.io/graphql"
 });
-
-client
-  .query({
-    query: gql`
-      {
-        allReceipts {
-          edges {
-            node {
-              timestamp
-            }
-          }
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -115,47 +100,6 @@ class HomeScreen extends React.Component {
     )
   }
 
-  renderLogEntry(logEntry) {
-    switch (logEntry.type) {
-      case 'achievement':
-        return (
-          <View style={styles.logEntry} key={logEntry.date}>
-            <RkText style={styles.logEntryValue}>Achievement: {logEntry.name}</RkText>
-            <RkText style={styles.logEntryDate}>
-              {Moment(logEntry.date).format('MMMM DD, YYYY')}
-            </RkText>
-          </View>
-        )
-      case 'receipt':
-        return (
-          <View style={styles.logEntry} key={logEntry.date}>
-            <RkText style={styles.logEntryValue}>
-              {logEntry.shopName} ({logEntry.value})
-            </RkText>
-            <RkText style={styles.logEntryDate}>
-              {Moment(logEntry.date).format('MMMM DD, YYYY')}
-            </RkText>
-          </View>
-        )
-    }
-  }
-
-  getChronologicalLogEntries(achievements, receipts) {
-    achievementsTagged = achievements.map(achievement => {
-      achievement.type = "achievement"
-      return achievement;
-    })
-    receiptsTagged = receipts.map(receipt => {
-      receipt.type = "receipt"
-      return receipt;
-    })
-    allEntries = achievementsTagged.concat(receiptsTagged);
-    allEntries.sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
-    })
-    return allEntries;
-  }
-
   render() {
     return (
       <ScrollView style={styles.screen}>
@@ -166,10 +110,7 @@ class HomeScreen extends React.Component {
           {this.data.statItems.map(item => this.renderStatItem(item))}
         </View>
         <View style={styles.logEntries}>
-          {this.getChronologicalLogEntries(
-            this.data.achievements,
-            this.data.receipts,
-          ).map(logEntry => this.renderLogEntry(logEntry))}
+          <ReceiptListComponent />
         </View>
       </ScrollView>
     );
@@ -232,19 +173,6 @@ let styles = RkStyleSheet.create(theme => ({
     marginTop: 10,
     marginHorizontal: -15
   },
-  logEntry: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderBottomColor: '#DBDADD',
-    borderBottomWidth: 0.5,
-  },
-  logEntryValue: {
-    fontWeight: '500'
-  },
-  logEntryDate: {
-    marginTop: 3,
-    color: '#8E8E93',
-  }
 }));
 
 class ReceiptScreen extends React.Component {
