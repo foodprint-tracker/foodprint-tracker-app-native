@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, ScrollView, View } from 'react-native';
+import { Button, ScrollView, View, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
-import { Avatar } from './components/avatar';
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -34,6 +33,29 @@ class HomeScreen extends React.Component {
           value: '-2 %',
           background: '#4472EE'
         },
+      ],
+      achievements: [
+        {
+          name: 'Carbon Saver',
+          date: '2018-09-14T09:00:00'
+        }
+      ],
+      receipts: [
+        {
+          shopName: 'Migros',
+          value: 'CHF 110.50',
+          date: '2018-09-09T00:00:00'
+        },
+        {
+          shopName: 'Coop',
+          value: 'CHF 34.10',
+          date: '2018-09-14T02:00:00'
+        },
+        {
+          shopName: 'Coop',
+          value: 'CHF 17.99',
+          date: '2018-09-05T00:00:00'
+        },
       ]
     };
   }
@@ -46,7 +68,7 @@ class HomeScreen extends React.Component {
           <RkText style={styles.profileInfoDescription}>{profileInfo.localRank.region}</RkText>
         </View>
         <View>
-          <Avatar img={profileInfo.photo} rkType='big'/>
+        <Image style={styles.profileInfoAvatar} source={profileInfo.photo}/>
         </View>
         <View>
           <RkText style={styles.profileInfoValue}>{profileInfo.friendRank.value}</RkText>
@@ -67,6 +89,30 @@ class HomeScreen extends React.Component {
     )
   }
 
+  renderLogEntry(logEntry) {
+    return (
+      <View key={logEntry.date}>
+        <RkText style={styles.logEntryDate}>{logEntry.date}</RkText>
+      </View>
+    )
+  }
+
+  getChronologicalLogEntries(achievements, receipts) {
+    achievementsTagged = achievements.map(achievement => {
+      achievement.type = "achievement"
+      return achievement;
+    })
+    receiptsTagged = receipts.map(receipt => {
+      receipt.type = "receipt"
+      return receipt;
+    })
+    allEntries = achievementsTagged.concat(receiptsTagged);
+    allEntries.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    })
+    return allEntries;
+  }
+
   render() {
     return (
       <ScrollView style={styles.screen}>
@@ -75,6 +121,12 @@ class HomeScreen extends React.Component {
         </View>
         <View style={styles.statItems}>
           {this.data.statItems.map(item => this.renderStatItem(item))}
+        </View>
+        <View style={styles.logEntries}>
+          {this.getChronologicalLogEntries(
+            this.data.achievements,
+            this.data.receipts,
+          ).map(logEntry => this.renderLogEntry(logEntry))}
         </View>
       </ScrollView>
     );
@@ -98,6 +150,16 @@ let styles = RkStyleSheet.create(theme => ({
     color: '#646464',
     alignSelf: 'center'
   },
+  profileInfoAvatar: {
+      width: 80,
+      height: 80,
+      borderRadius: 40,
+  },
+  profileInfoDescription: {
+    fontSize: 12,
+    color: '#646464',
+    alignSelf: 'center'
+  },
   statItems: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -114,12 +176,12 @@ let styles = RkStyleSheet.create(theme => ({
   },
   statItemValue: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     alignSelf: 'flex-start',
   },
   statItemName: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 10,
     alignSelf: 'flex-end',
     fontWeight: 'bold'
   },
