@@ -3,6 +3,31 @@ import { Button, ScrollView, View, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
 import Moment from 'moment';
+import { ApolloProvider } from 'react-apollo';
+import gql from "graphql-tag";
+
+const ApolloBoost = require('apollo-boost');
+const ApolloClient = ApolloBoost.default;
+
+const client = new ApolloClient({
+  uri: "http://5481fb4e.ngrok.io/graphql"
+});
+
+client
+  .query({
+    query: gql`
+      {
+        allReceipts {
+          edges {
+            node {
+              timestamp
+            }
+          }
+        }
+      }
+    `
+  })
+  .then(result => console.log(result));
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -244,6 +269,10 @@ const RootStack = createStackNavigator(
 
 export default class App extends React.Component {
   render() {
-    return <RootStack />;
+    return (
+      <ApolloProvider client={client}>
+        <RootStack />
+      </ApolloProvider>
+    )
   }
 }
