@@ -43,6 +43,14 @@ const ReceiptListComponent = () => {
       receipts = data.allReceipts.edges.map((edge) => edge.node);
       receipts = Object.values(receipts);
       receipts = receipts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+      for (receipt of receipts) {
+        totalPrice = 0;
+        for (item of receipt.itemSet.edges) {
+          totalPrice += item.node.price;
+        }
+        totalPrice = totalPrice.toFixed(2);
+        receipt.totalPrice = totalPrice;
+      }
       console.log(receipts);
 
       // Render the list
@@ -51,7 +59,7 @@ const ReceiptListComponent = () => {
           {receipts.map(receipt => (
             <View style={styles.logEntry} key={receipt.id}>
               <RkText style={styles.logEntryValue}>
-                {receipt.id}
+                {receipt.shop} ({receipt.currency} {receipt.totalPrice})
               </RkText>
               <RkText style={styles.logEntryDate}>
                 {Moment(receipt.timestamp).format('MMMM DD, YYYY')}

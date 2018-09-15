@@ -106,6 +106,9 @@ class HomeScreen extends React.Component {
         <View style={styles.profileInfo}>
           {this.renderProfileInfo(this.data.profileInfo)}
         </View>
+        <View style={styles.statsDescription}>
+          <RkText>Progress of the last 14 days:</RkText>
+        </View>
         <View style={styles.statItems}>
           {this.data.statItems.map(item => this.renderStatItem(item))}
         </View>
@@ -143,6 +146,9 @@ let styles = RkStyleSheet.create(theme => ({
     fontSize: 12,
     color: '#646464',
     alignSelf: 'center'
+  },
+  statsDescription: {
+    paddingHorizontal: 5
   },
   statItems: {
     flexDirection: 'row',
