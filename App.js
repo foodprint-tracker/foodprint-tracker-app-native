@@ -101,7 +101,7 @@ let styles = RkStyleSheet.create(theme => ({
   statItems: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 15,
+    marginVertical: 5,
   },
   statItemContainer: {
     flexDirection: 'column',
