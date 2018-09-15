@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, ScrollView, View, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
+import Moment from 'moment';
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -90,11 +91,28 @@ class HomeScreen extends React.Component {
   }
 
   renderLogEntry(logEntry) {
-    return (
-      <View key={logEntry.date}>
-        <RkText style={styles.logEntryDate}>{logEntry.date}</RkText>
-      </View>
-    )
+    switch (logEntry.type) {
+      case 'achievement':
+        return (
+          <View style={styles.logEntry} key={logEntry.date}>
+            <RkText style={styles.logEntryValue}>Achievement: {logEntry.name}</RkText>
+            <RkText style={styles.logEntryDate}>
+              {Moment(logEntry.date).format('MMMM DD, YYYY')}
+            </RkText>
+          </View>
+        )
+      case 'receipt':
+        return (
+          <View style={styles.logEntry} key={logEntry.date}>
+            <RkText style={styles.logEntryValue}>
+              {logEntry.shopName} ({logEntry.value})
+            </RkText>
+            <RkText style={styles.logEntryDate}>
+              {Moment(logEntry.date).format('MMMM DD, YYYY')}
+            </RkText>
+          </View>
+        )
+    }
   }
 
   getChronologicalLogEntries(achievements, receipts) {
@@ -185,6 +203,23 @@ let styles = RkStyleSheet.create(theme => ({
     alignSelf: 'flex-end',
     fontWeight: 'bold'
   },
+  logEntries: {
+    marginTop: 10,
+    marginHorizontal: -15
+  },
+  logEntry: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderBottomColor: '#DBDADD',
+    borderBottomWidth: 0.5,
+  },
+  logEntryValue: {
+    fontWeight: '500'
+  },
+  logEntryDate: {
+    marginTop: 3,
+    color: '#8E8E93',
+  }
 }));
 
 class ReceiptScreen extends React.Component {
