@@ -2,11 +2,22 @@ import React from 'react';
 import { Button, ScrollView, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
+import { Avatar } from './components/avatar';
 
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.data = {
+      profileInfo: {
+        photo: require('./assets/images/avatar.png'),
+        localRank: {
+          value: 'Top 5 %',
+          region: 'in Switzerland'
+        },
+        friendRank: {
+          value: '#2'
+        }
+      },
       statItems: [
         {
           name: 'CO2',
@@ -27,6 +38,24 @@ class HomeScreen extends React.Component {
     };
   }
 
+  renderProfileInfo(profileInfo) {
+    return (
+      <View style={styles.profileInfoRank}>
+        <View>
+          <RkText style={styles.profileInfoValue}>{profileInfo.localRank.value}</RkText>
+          <RkText style={styles.profileInfoDescription}>{profileInfo.localRank.region}</RkText>
+        </View>
+        <View>
+          <Avatar img={profileInfo.photo} rkType='big'/>
+        </View>
+        <View>
+          <RkText style={styles.profileInfoValue}>{profileInfo.friendRank.value}</RkText>
+          <RkText style={styles.profileInfoDescription}>among friends</RkText>
+        </View>
+      </View>
+    )
+  }
+
   renderStatItem(item) {
     return (
       <View style={[styles.statItemContainer, {backgroundColor: item.background}]} key={item.name}>
@@ -41,6 +70,9 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.screen}>
+        <View style={styles.profileInfo}>
+          {this.renderProfileInfo(this.data.profileInfo)}
+        </View>
         <View style={styles.statItems}>
           {this.data.statItems.map(item => this.renderStatItem(item))}
         </View>
@@ -53,6 +85,18 @@ let styles = RkStyleSheet.create(theme => ({
   screen: {
     backgroundColor: 'white',
     paddingHorizontal: 15,
+  },
+  profileInfoRank: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  profileInfoValue: {
+    fontSize: 22,
+    color: '#646464',
+    alignSelf: 'center'
   },
   statItems: {
     flexDirection: 'row',
