@@ -10,17 +10,17 @@ class HomeScreen extends React.Component {
       statItems: [
         {
           name: 'CO2',
-          value: '12.5 kg',
+          value: '+16 %',
           background: '#646464'
         },
         {
           name: 'Energy',
-          value: '190 MJ',
+          value: '-22 %',
           background: '#D9B601'
         },
         {
           name: 'Water',
-          value: '112 l',
+          value: '-2 %',
           background: '#4472EE'
         },
       ]
@@ -51,7 +51,7 @@ class HomeScreen extends React.Component {
 
 let styles = RkStyleSheet.create(theme => ({
   screen: {
-    backgroundColor: theme.colors.screen.scroll,
+    backgroundColor: 'white',
     paddingHorizontal: 15,
   },
   statItems: {
@@ -60,7 +60,7 @@ let styles = RkStyleSheet.create(theme => ({
     marginVertical: 15,
   },
   statItemContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: 5,
     paddingHorizontal: 10,
@@ -70,11 +70,14 @@ let styles = RkStyleSheet.create(theme => ({
   },
   statItemValue: {
     color: 'white',
-    alignSelf: 'flex-end',
+    fontSize: 20,
+    alignSelf: 'flex-start',
   },
   statItemName: {
     color: 'white',
+    fontSize: 12,
     alignSelf: 'flex-end',
+    fontWeight: 'bold'
   },
 }));
 
