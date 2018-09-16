@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, ScrollView, View, Image } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { Button, ScrollView, View, Image, TouchableOpacity, Text } from 'react-native';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
 import Moment from 'moment';
 import { graphql, ApolloProvider, Query } from 'react-apollo';
@@ -8,6 +8,7 @@ import gql from "graphql-tag";
 import ReceiptListComponent from './ReceiptListComponent';
 import ReceiptItemsListComponent from './ReceiptItemsListComponent';
 import ReceiptItemIngredientsComponent from './ReceiptItemIngredientsComponent';
+import { RNCamera, FaceDetector } from 'react-native-camera';
 
 const ApolloBoost = require('apollo-boost');
 const ApolloClient = ApolloBoost.default;
@@ -15,6 +16,122 @@ const ApolloClient = ApolloBoost.default;
 const client = new ApolloClient({
   uri: "http://5481fb4e.ngrok.io/graphql"
 });
+
+class ScannerScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.container}>
+        <RNCamera
+            ref={ref => {
+              this.camera = ref;
+            }}
+            style = {styles.preview}
+            type={RNCamera.Constants.Type.back}
+            flashMode={RNCamera.Constants.FlashMode.off}
+            permissionDialogTitle={'Permission to use camera'}
+            permissionDialogMessage={'We need your permission to use the camera for scanning receipts.'}
+        />
+        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
+        <TouchableOpacity
+            onPress={() =>
+              navigate('Receipt', { receipt:
+                {
+                  "timestamp": "2018-09-15",
+                  "id": "UmVjZWlwdE5vZGU6MQ==",
+                  "shop": "",
+                  "currency": "EUR",
+                  "itemSet": {
+                    "edges": [
+                      {
+                        "node": {
+                          "displayName": "Ham Sandwich",
+                          "kg": 0.4,
+                          "id": "SXRlbU5vZGU6NQ==",
+                          "price": 2.8,
+                          "itemingredientSet": {
+                            "edges": [
+                              {
+                                "node": {
+                                  "co2Fp": 0.09,
+                                  "energyFp": 0,
+                                  "waterFp": 0,
+                                  "displayName": "Butter",
+                                  "id": "SW5ncmVkaWVudE5vZGU6Mg=="
+                                }
+                              },
+                              {
+                                "node": {
+                                  "co2Fp": 0.43,
+                                  "energyFp": 3.66,
+                                  "waterFp": 0.02,
+                                  "displayName": "Ham",
+                                  "id": "SW5ncmVkaWVudE5vZGU6Mw=="
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "node": {
+                          "displayName": "Tomatoes",
+                          "kg": 0.8,
+                          "id": "SXRlbU5vZGU6Mw==",
+                          "price": 2.2,
+                          "itemingredientSet": {
+                            "edges": [
+                              {
+                                "node": {
+                                  "co2Fp": 1.6,
+                                  "energyFp": 0.8,
+                                  "waterFp": 2.4,
+                                  "displayName": "Tomatoes",
+                                  "id": "SW5ncmVkaWVudE5vZGU6MQ=="
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "node": {
+                          "displayName": "Salami",
+                          "kg": 0.5,
+                          "id": "SXRlbU5vZGU6Mg==",
+                          "price": 8.5,
+                          "itemingredientSet": {
+                            "edges": []
+                          }
+                        }
+                      },
+                      {
+                        "node": {
+                          "displayName": "Beef",
+                          "kg": 1,
+                          "id": "SXRlbU5vZGU6MQ==",
+                          "price": 18,
+                          "itemingredientSet": {
+                            "edges": []
+                          }
+                        }
+                      }
+                    ]
+                  }
+                } })
+            }
+            style = {styles.capture}
+        >
+            <Text style={{fontSize: 14}}> Scan Receipt </Text>
+        </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
 
 class HomeScreen extends React.Component {
   constructor(props) {
@@ -182,6 +299,25 @@ let styles = RkStyleSheet.create(theme => ({
     marginTop: 10,
     marginHorizontal: -15
   },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'black'
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 15,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    margin: 20
+  }
 }));
 
 class ReceiptScreen extends React.Component {
@@ -218,7 +354,7 @@ class ReceiptItemScreen extends React.Component {
   }
 }
 
-const RootStack = createStackNavigator(
+const ProfileStack = createStackNavigator(
   {
     Home: HomeScreen,
     Receipt: ReceiptScreen,
@@ -228,6 +364,25 @@ const RootStack = createStackNavigator(
     initialRouteName: 'Home',
   }
 );
+
+const ScannerStack = createStackNavigator(
+  {
+    Scanner: ScannerScreen,
+  },
+  {
+    initialRouteName: 'Scanner'
+  }
+)
+
+const RootStack = createBottomTabNavigator(
+  {
+    Profile: ProfileStack,
+    Scanner: ScannerStack,
+  },
+  {
+    initialRouteName: 'Scanner'
+  }
+)
 
 export default class App extends React.Component {
   render() {
