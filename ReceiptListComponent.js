@@ -30,7 +30,7 @@ const ReceiptListComponent = (props) => {
     {({loading, error, data}) => {
       //Show an alert if there is an error
       if (error) {
-        Alert.alert("Error", "Could not fetch receipts");
+        // Alert.alert("Error", "Could not fetch receipts");
         console.log(error);
         return null;
       }

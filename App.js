@@ -15,7 +15,7 @@ const ApolloBoost = require('apollo-boost');
 const ApolloClient = ApolloBoost.default;
 
 const client = new ApolloClient({
-  uri: "http://5481fb4e.ngrok.io/graphql"
+  uri: "http://13ba1fb0.ngrok.io/graphql"
 });
 
 class ScannerScreen extends React.Component {
