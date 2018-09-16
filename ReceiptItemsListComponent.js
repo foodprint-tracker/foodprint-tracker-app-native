@@ -26,9 +26,8 @@ const styles = RkStyleSheet.create(theme => ({
     marginTop: 3,
     color: '#8E8E93',
   },
-  logEntryBadge: {
+  logEntryBadgeSingleLine: {
     alignSelf: 'flex-end',
-    marginTop: -18,
   }
 }));
 

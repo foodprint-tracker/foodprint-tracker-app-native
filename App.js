@@ -15,7 +15,7 @@ const ApolloBoost = require('apollo-boost');
 const ApolloClient = ApolloBoost.default;
 
 const client = new ApolloClient({
-  uri: "http://13ba1fb0.ngrok.io/graphql"
+  uri: "http://foodkarma-633525510.eu-west-1.elb.amazonaws.com/graphql"
 });
 
 class ScannerScreen extends React.Component {
@@ -63,6 +63,7 @@ class LoadingScreen extends React.Component {
         "timestamp": "2018-09-16",
         "id": "UmVjZWlwdE5vZGU6MQ==",
         "shop": "MIGROS",
+        "totalCo2Fp": 1.62,
         "currency": "CHF",
         "itemSet": {
           "edges": [
@@ -72,6 +73,7 @@ class LoadingScreen extends React.Component {
                 "kg": 0.3,
                 "id": "SXRlbU5vZGU6NQ==",
                 "price": 0.6,
+                "itemCo2Fp": 0.12,
                 "itemingredientSet": {
                   "edges": [
                     {
@@ -79,6 +81,8 @@ class LoadingScreen extends React.Component {
                         "co2Fp": 0.03,
                         "energyFp": 0,
                         "waterFp": 1,
+                        "ingredientCo2Fp": 0.4,
+                        "concentration": 1,
                         "displayName": "Zwetschgen",
                         "id": "SW5ncmVkaWVudE5vZGU6Mg=="
                       }
@@ -93,6 +97,7 @@ class LoadingScreen extends React.Component {
                 "kg": 0.15,
                 "id": "SXRlbU5vZGU6Mw==",
                 "price": 1.2,
+                "itemCo2Fp": 0.6,
                 "itemingredientSet": {
                   "edges": [
                     {
@@ -100,6 +105,8 @@ class LoadingScreen extends React.Component {
                         "co2Fp": 0.09,
                         "energyFp": 0,
                         "waterFp": 0,
+                        "ingredientCo2Fp": 0.8,
+                        "concentration": 0.8,
                         "displayName": "Butter",
                         "id": "SW5ncmVkaWVudE5vZGU6MQ=="
                       }
@@ -109,6 +116,8 @@ class LoadingScreen extends React.Component {
                         "co2Fp": 0.02,
                         "energyFp": 0,
                         "waterFp": 0,
+                        "ingredientCo2Fp": 0.2,
+                        "concentration": 0.2,
                         "displayName": "Flour",
                         "id": "SW5ncmVkaWVudE5vZGU6My=="
                       }
@@ -123,6 +132,7 @@ class LoadingScreen extends React.Component {
                 "kg": 0.15,
                 "id": "SXRlbU5vZGU6Mg==",
                 "price": 1.5,
+                "itemCo2Fp": 0.5,
                 "itemingredientSet": {
                   "edges": [
                     {
@@ -130,6 +140,8 @@ class LoadingScreen extends React.Component {
                         "co2Fp": 0.09,
                         "energyFp": 0,
                         "waterFp": 0,
+                        "ingredientCo2Fp": 0.8,
+                        "concentration": 0.3,
                         "displayName": "Butter",
                         "id": "SW5ncmVkaWVudE5vZGU6MQ=="
                       }
@@ -138,6 +150,8 @@ class LoadingScreen extends React.Component {
                       "node": {
                         "co2Fp": 0.02,
                         "energyFp": 0,
+                        "ingredientCo2Fp": 0.2,
+                        "concentration": 0.7,
                         "waterFp": 0,
                         "displayName": "Flour",
                         "id": "SW5ncmVkaWVudE5vZGU6My=="
@@ -153,6 +167,7 @@ class LoadingScreen extends React.Component {
                 "kg": 0.1,
                 "id": "SXRlbU5vZGU6MQ==",
                 "price": 1.7,
+                "itemCo2Fp": 0.4,
                 "itemingredientSet": {
                   "edges": [
                     {
@@ -160,6 +175,8 @@ class LoadingScreen extends React.Component {
                         "co2Fp": 0.09,
                         "energyFp": 0,
                         "waterFp": 0,
+                        "ingredientCo2Fp": 0.8,
+                        "concentration": 0.9,
                         "displayName": "Butter",
                         "id": "SW5ncmVkaWVudE5vZGU6MQ=="
                       }
@@ -169,7 +186,9 @@ class LoadingScreen extends React.Component {
                         "co2Fp": 0.02,
                         "energyFp": 0,
                         "waterFp": 0,
+                        "ingredientCo2Fp": 0.2,
                         "displayName": "Flour",
+                        "concentration": 0.1,
                         "id": "SW5ncmVkaWVudE5vZGU6My=="
                       }
                     }
@@ -293,7 +312,7 @@ class HomeScreen extends React.Component {
         </RkText>
         <RkButton style={styles.sharingButton} onPress={() => {
           shareOnTwitter({
-              'text':'I reached an achievement regaring the environmental footprint of my grocery shoppings!',
+              'text':'Achievement!\nWe raised awareness about food sustainability at #HackZurich and made it with our app into the finals.\nLive tweet from stage!\n \nFood Karma: Food for a healthy planet.',
             },
             (results) => {
               console.log(results);
