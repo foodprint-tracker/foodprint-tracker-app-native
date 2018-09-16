@@ -12,6 +12,10 @@ const styles = RkStyleSheet.create(theme => ({
     borderBottomColor: '#DBDADD',
     borderBottomWidth: 0.5,
   },
+  logEntryNoBorder: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
   logEntryValue: {
     fontWeight: '500'
   },
@@ -34,7 +38,7 @@ const ReceiptListComponent = (props) => {
       // Show a loading screen if the query is not yet finished
       if (loading) {
         return (
-          <View style={styles.logEntry}>
+          <View style={styles.logEntryNoBorder}>
             <RkText>Loading receipts …</RkText>
           </View>
         )

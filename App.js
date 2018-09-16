@@ -228,7 +228,8 @@ class HomeScreen extends React.Component {
       achievements: [
         {
           name: 'Carbon Saver',
-          date: '2018-09-14T09:00:00'
+          date: '2018-09-14T09:00:00',
+          id: '0'
         }
       ],
       receipts: [
@@ -280,6 +281,19 @@ class HomeScreen extends React.Component {
     )
   }
 
+  renderAchievement(achievement, lastOne) {
+    return (
+      <View style={lastOne ? styles.logEntryNoBorder : styles.logEntry} key={achievement.id}>
+        <RkText style={styles.logEntryValue}>
+          Achievement: {achievement.name}
+        </RkText>
+        <RkText style={styles.logEntryDate}>
+          {Moment(achievement.timestamp).format('MMMM DD, YYYY')}
+        </RkText>
+      </View>
+    )
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -292,6 +306,15 @@ class HomeScreen extends React.Component {
         </View>
         <View style={styles.statItems}>
           {this.data.statItems.map(item => this.renderStatItem(item))}
+        </View>
+        <View style={styles.achievements}>
+          {this.data.achievements.map((achievement, index) => {
+            lastOne = false;
+            if (index === this.data.achievements.length - 1) {
+              lastOne = true;
+            }
+            return this.renderAchievement(achievement, lastOne)
+          })}
         </View>
         <View style={styles.logEntries}>
           <ReceiptListComponent navigate={navigate} />
@@ -366,9 +389,30 @@ let styles = RkStyleSheet.create(theme => ({
     alignSelf: 'flex-end',
     fontWeight: 'bold'
   },
+  achievements: {
+    marginTop: 10,
+    marginHorizontal: -15
+  },
   logEntries: {
     marginTop: 10,
     marginHorizontal: -15
+  },
+  logEntry: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderBottomColor: '#DBDADD',
+    borderBottomWidth: 0.5,
+  },
+  logEntryNoBorder: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  logEntryValue: {
+    fontWeight: '500'
+  },
+  logEntryDate: {
+    marginTop: 3,
+    color: '#8E8E93',
   },
   container: {
     flex: 1,

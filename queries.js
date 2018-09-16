@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 // Query to fetch all the receipts
 const FETCH_RECEIPTS = gql`
 query fetch_receipts{
-  allReceipts {
+  allReceipts(user_Email: "test@test.com") {
     edges {
       node {
         timestamp
