@@ -40,18 +40,39 @@ class ScannerScreen extends React.Component {
             onPress={() =>
               navigate('Receipt', { receipt:
                 {
-                  "timestamp": "2018-09-15",
+                  "timestamp": "2018-09-16",
                   "id": "UmVjZWlwdE5vZGU6MQ==",
-                  "shop": "",
-                  "currency": "EUR",
+                  "shop": "MIGROS",
+                  "currency": "CHF",
                   "itemSet": {
                     "edges": [
                       {
                         "node": {
-                          "displayName": "Ham Sandwich",
-                          "kg": 0.4,
+                          "displayName": "Zwetschgen",
+                          "kg": 0.3,
                           "id": "SXRlbU5vZGU6NQ==",
-                          "price": 2.8,
+                          "price": 0.6,
+                          "itemingredientSet": {
+                            "edges": [
+                              {
+                                "node": {
+                                  "co2Fp": 0.03,
+                                  "energyFp": 0,
+                                  "waterFp": 1,
+                                  "displayName": "Zwetschgen",
+                                  "id": "SW5ncmVkaWVudE5vZGU6Mg=="
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "node": {
+                          "displayName": "Croissant pur Beurre",
+                          "kg": 0.15,
+                          "id": "SXRlbU5vZGU6Mw==",
+                          "price": 1.2,
                           "itemingredientSet": {
                             "edges": [
                               {
@@ -60,16 +81,16 @@ class ScannerScreen extends React.Component {
                                   "energyFp": 0,
                                   "waterFp": 0,
                                   "displayName": "Butter",
-                                  "id": "SW5ncmVkaWVudE5vZGU6Mg=="
+                                  "id": "SW5ncmVkaWVudE5vZGU6MQ=="
                                 }
                               },
                               {
                                 "node": {
-                                  "co2Fp": 0.43,
-                                  "energyFp": 3.66,
-                                  "waterFp": 0.02,
-                                  "displayName": "Ham",
-                                  "id": "SW5ncmVkaWVudE5vZGU6Mw=="
+                                  "co2Fp": 0.02,
+                                  "energyFp": 0,
+                                  "waterFp": 0,
+                                  "displayName": "Flour",
+                                  "id": "SW5ncmVkaWVudE5vZGU6My=="
                                 }
                               }
                             ]
@@ -78,19 +99,28 @@ class ScannerScreen extends React.Component {
                       },
                       {
                         "node": {
-                          "displayName": "Tomatoes",
-                          "kg": 0.8,
-                          "id": "SXRlbU5vZGU6Mw==",
-                          "price": 2.2,
+                          "displayName": "Laugenbrezel",
+                          "kg": 0.15,
+                          "id": "SXRlbU5vZGU6Mg==",
+                          "price": 1.5,
                           "itemingredientSet": {
                             "edges": [
                               {
                                 "node": {
-                                  "co2Fp": 1.6,
-                                  "energyFp": 0.8,
-                                  "waterFp": 2.4,
-                                  "displayName": "Tomatoes",
+                                  "co2Fp": 0.09,
+                                  "energyFp": 0,
+                                  "waterFp": 0,
+                                  "displayName": "Butter",
                                   "id": "SW5ncmVkaWVudE5vZGU6MQ=="
+                                }
+                              },
+                              {
+                                "node": {
+                                  "co2Fp": 0.02,
+                                  "energyFp": 0,
+                                  "waterFp": 0,
+                                  "displayName": "Flour",
+                                  "id": "SW5ncmVkaWVudE5vZGU6My=="
                                 }
                               }
                             ]
@@ -99,23 +129,31 @@ class ScannerScreen extends React.Component {
                       },
                       {
                         "node": {
-                          "displayName": "Salami",
-                          "kg": 0.5,
-                          "id": "SXRlbU5vZGU6Mg==",
-                          "price": 8.5,
-                          "itemingredientSet": {
-                            "edges": []
-                          }
-                        }
-                      },
-                      {
-                        "node": {
-                          "displayName": "Beef",
-                          "kg": 1,
+                          "displayName": "Buttergipfel Branche",
+                          "kg": 0.1,
                           "id": "SXRlbU5vZGU6MQ==",
-                          "price": 18,
+                          "price": 1.7,
                           "itemingredientSet": {
-                            "edges": []
+                            "edges": [
+                              {
+                                "node": {
+                                  "co2Fp": 0.09,
+                                  "energyFp": 0,
+                                  "waterFp": 0,
+                                  "displayName": "Butter",
+                                  "id": "SW5ncmVkaWVudE5vZGU6MQ=="
+                                }
+                              },
+                              {
+                                "node": {
+                                  "co2Fp": 0.02,
+                                  "energyFp": 0,
+                                  "waterFp": 0,
+                                  "displayName": "Flour",
+                                  "id": "SW5ncmVkaWVudE5vZGU6My=="
+                                }
+                              }
+                            ]
                           }
                         }
                       }
