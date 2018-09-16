@@ -70,7 +70,11 @@ const ReceiptListComponent = (props) => {
           itemCo2Fp = 0;
           for (ingredient of item.node.itemingredientSet.edges) {
             ingredient = ingredient.node;
-            ingredient.relativeCo2Fp = ingredient.co2Fp / ingredient.concentration;
+            ingredient.relativeCo2Fp = parseFloat(ingredient.co2Fp) / parseFloat(ingredient.concentration);
+            console.log(ingredient.co2Fp);
+            console.log(ingredient.concentration);
+            console.log(parseFloat(ingredient.co2Fp) / parseFloat(ingredient.concentration));
+            console.log(ingredient.relativeCo2Fp);
             // relativeEnergyFp = ingredient.energyFp / ingredient.concentration;
             // relativeWaterFp = ingredient.waterFp / ingredient.concentration;
             itemCo2Fp += ingredient.co2Fp;

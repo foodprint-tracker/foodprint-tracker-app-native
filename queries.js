@@ -23,6 +23,7 @@ query fetch_receipts{
                     co2Fp
                     energyFp
                     waterFp
+                    concentration
                     displayName
                     id
                   }
