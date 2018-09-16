@@ -5,6 +5,17 @@ import { graphql, Query } from 'react-apollo';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
 import Moment from 'moment';
 
+const colourCodeCo2Level = (value) => {
+  if (value < 6.0) {
+    return 'black';
+  } else if (value < 12.0) {
+    return '#FDA80B';
+  } else {
+    return '#E14C2A';
+  }
+}
+
+
 const styles = RkStyleSheet.create(theme => ({
   logEntry: {
     paddingHorizontal: 20,
@@ -22,6 +33,10 @@ const styles = RkStyleSheet.create(theme => ({
   logEntryDate: {
     marginTop: 3,
     color: '#8E8E93',
+  },
+  logEntryBadge: {
+    alignSelf: 'flex-end',
+    marginTop: -18,
   }
 }));
 
@@ -49,11 +64,26 @@ const ReceiptListComponent = (props) => {
       receipts = receipts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
       for (receipt of receipts) {
         totalPrice = 0;
+        totalCo2Fp = 0;
         for (item of receipt.itemSet.edges) {
           totalPrice += item.node.price;
+          itemCo2Fp = 0;
+          for (ingredient of item.node.itemingredientSet.edges) {
+            ingredient = ingredient.node;
+            ingredient.relativeCo2Fp = ingredient.co2Fp / ingredient.concentration;
+            // relativeEnergyFp = ingredient.energyFp / ingredient.concentration;
+            // relativeWaterFp = ingredient.waterFp / ingredient.concentration;
+            itemCo2Fp += ingredient.co2Fp;
+            // console.log('ingredientCo2Fp: ' + ingredient.co2Fp);
+          }
+          totalCo2Fp += itemCo2Fp;
+          item.node.itemCo2Fp = itemCo2Fp;
+          // console.log('itemCo2Fp: ' + ingredient.co2Fp);
         }
         totalPrice = totalPrice.toFixed(2);
         receipt.totalPrice = totalPrice;
+        receipt.totalCo2Fp = totalCo2Fp;
+        console.log(receipt);
       }
       console.log(receipts);
 
@@ -72,6 +102,9 @@ const ReceiptListComponent = (props) => {
                 </RkText>
                 <RkText style={styles.logEntryDate}>
                   {Moment(receipt.timestamp).format('MMMM DD, YYYY')}
+                </RkText>
+                <RkText style={[styles.logEntryBadge, {color: colourCodeCo2Level(receipt.totalCo2Fp)}]}>
+                  {receipt.totalCo2Fp.toFixed(2)} kg CO2
                 </RkText>
               </View>
             </TouchableHighlight>
