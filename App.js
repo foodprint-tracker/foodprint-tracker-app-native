@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ScrollView, View, Image, TouchableOpacity, Text } from 'react-native';
+import { Button, ScrollView, View, Image, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { RkButton, RkText, RkStyleSheet, RkTheme } from 'react-native-ui-kitten';
 import Moment from 'moment';
@@ -38,128 +38,7 @@ class ScannerScreen extends React.Component {
         <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
         <TouchableOpacity
             onPress={() =>
-              navigate('Receipt', { receipt:
-                {
-                  "timestamp": "2018-09-16",
-                  "id": "UmVjZWlwdE5vZGU6MQ==",
-                  "shop": "MIGROS",
-                  "currency": "CHF",
-                  "itemSet": {
-                    "edges": [
-                      {
-                        "node": {
-                          "displayName": "Zwetschgen",
-                          "kg": 0.3,
-                          "id": "SXRlbU5vZGU6NQ==",
-                          "price": 0.6,
-                          "itemingredientSet": {
-                            "edges": [
-                              {
-                                "node": {
-                                  "co2Fp": 0.03,
-                                  "energyFp": 0,
-                                  "waterFp": 1,
-                                  "displayName": "Zwetschgen",
-                                  "id": "SW5ncmVkaWVudE5vZGU6Mg=="
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      {
-                        "node": {
-                          "displayName": "Croissant pur Beurre",
-                          "kg": 0.15,
-                          "id": "SXRlbU5vZGU6Mw==",
-                          "price": 1.2,
-                          "itemingredientSet": {
-                            "edges": [
-                              {
-                                "node": {
-                                  "co2Fp": 0.09,
-                                  "energyFp": 0,
-                                  "waterFp": 0,
-                                  "displayName": "Butter",
-                                  "id": "SW5ncmVkaWVudE5vZGU6MQ=="
-                                }
-                              },
-                              {
-                                "node": {
-                                  "co2Fp": 0.02,
-                                  "energyFp": 0,
-                                  "waterFp": 0,
-                                  "displayName": "Flour",
-                                  "id": "SW5ncmVkaWVudE5vZGU6My=="
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      {
-                        "node": {
-                          "displayName": "Laugenbrezel",
-                          "kg": 0.15,
-                          "id": "SXRlbU5vZGU6Mg==",
-                          "price": 1.5,
-                          "itemingredientSet": {
-                            "edges": [
-                              {
-                                "node": {
-                                  "co2Fp": 0.09,
-                                  "energyFp": 0,
-                                  "waterFp": 0,
-                                  "displayName": "Butter",
-                                  "id": "SW5ncmVkaWVudE5vZGU6MQ=="
-                                }
-                              },
-                              {
-                                "node": {
-                                  "co2Fp": 0.02,
-                                  "energyFp": 0,
-                                  "waterFp": 0,
-                                  "displayName": "Flour",
-                                  "id": "SW5ncmVkaWVudE5vZGU6My=="
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      {
-                        "node": {
-                          "displayName": "Buttergipfel Branche",
-                          "kg": 0.1,
-                          "id": "SXRlbU5vZGU6MQ==",
-                          "price": 1.7,
-                          "itemingredientSet": {
-                            "edges": [
-                              {
-                                "node": {
-                                  "co2Fp": 0.09,
-                                  "energyFp": 0,
-                                  "waterFp": 0,
-                                  "displayName": "Butter",
-                                  "id": "SW5ncmVkaWVudE5vZGU6MQ=="
-                                }
-                              },
-                              {
-                                "node": {
-                                  "co2Fp": 0.02,
-                                  "energyFp": 0,
-                                  "waterFp": 0,
-                                  "displayName": "Flour",
-                                  "id": "SW5ncmVkaWVudE5vZGU6My=="
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    ]
-                  }
-                } })
+              navigate('Loading')
             }
             style = {styles.capture}
         >
@@ -168,6 +47,150 @@ class ScannerScreen extends React.Component {
         </View>
       </View>
     );
+  }
+}
+
+class LoadingScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  showReceipt = () => {
+    const { navigate } = this.props.navigation;
+    navigate('Receipt', { receipt:
+      {
+        "timestamp": "2018-09-16",
+        "id": "UmVjZWlwdE5vZGU6MQ==",
+        "shop": "MIGROS",
+        "currency": "CHF",
+        "itemSet": {
+          "edges": [
+            {
+              "node": {
+                "displayName": "Zwetschgen",
+                "kg": 0.3,
+                "id": "SXRlbU5vZGU6NQ==",
+                "price": 0.6,
+                "itemingredientSet": {
+                  "edges": [
+                    {
+                      "node": {
+                        "co2Fp": 0.03,
+                        "energyFp": 0,
+                        "waterFp": 1,
+                        "displayName": "Zwetschgen",
+                        "id": "SW5ncmVkaWVudE5vZGU6Mg=="
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "node": {
+                "displayName": "Croissant pur Beurre",
+                "kg": 0.15,
+                "id": "SXRlbU5vZGU6Mw==",
+                "price": 1.2,
+                "itemingredientSet": {
+                  "edges": [
+                    {
+                      "node": {
+                        "co2Fp": 0.09,
+                        "energyFp": 0,
+                        "waterFp": 0,
+                        "displayName": "Butter",
+                        "id": "SW5ncmVkaWVudE5vZGU6MQ=="
+                      }
+                    },
+                    {
+                      "node": {
+                        "co2Fp": 0.02,
+                        "energyFp": 0,
+                        "waterFp": 0,
+                        "displayName": "Flour",
+                        "id": "SW5ncmVkaWVudE5vZGU6My=="
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "node": {
+                "displayName": "Laugenbrezel",
+                "kg": 0.15,
+                "id": "SXRlbU5vZGU6Mg==",
+                "price": 1.5,
+                "itemingredientSet": {
+                  "edges": [
+                    {
+                      "node": {
+                        "co2Fp": 0.09,
+                        "energyFp": 0,
+                        "waterFp": 0,
+                        "displayName": "Butter",
+                        "id": "SW5ncmVkaWVudE5vZGU6MQ=="
+                      }
+                    },
+                    {
+                      "node": {
+                        "co2Fp": 0.02,
+                        "energyFp": 0,
+                        "waterFp": 0,
+                        "displayName": "Flour",
+                        "id": "SW5ncmVkaWVudE5vZGU6My=="
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "node": {
+                "displayName": "Buttergipfel Branche",
+                "kg": 0.1,
+                "id": "SXRlbU5vZGU6MQ==",
+                "price": 1.7,
+                "itemingredientSet": {
+                  "edges": [
+                    {
+                      "node": {
+                        "co2Fp": 0.09,
+                        "energyFp": 0,
+                        "waterFp": 0,
+                        "displayName": "Butter",
+                        "id": "SW5ncmVkaWVudE5vZGU6MQ=="
+                      }
+                    },
+                    {
+                      "node": {
+                        "co2Fp": 0.02,
+                        "energyFp": 0,
+                        "waterFp": 0,
+                        "displayName": "Flour",
+                        "id": "SW5ncmVkaWVudE5vZGU6My=="
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      } })
+  }
+
+  render() {
+    setTimeout(this.showReceipt, 1500)
+    return (
+      <ScrollView style={styles.screen}>
+        <View style={styles.loadingScreen}>
+          <RkText>Analyzing items …</RkText>
+          <ActivityIndicator style={styles.loadingIndicator} />
+        </View>
+      </ScrollView>
+    )
   }
 }
 
@@ -282,6 +305,16 @@ let styles = RkStyleSheet.create(theme => ({
   screen: {
     backgroundColor: 'white',
     paddingHorizontal: 15,
+  },
+  loadingScreen: {
+    marginTop: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loadingIndicator: {
+    marginTop: 10,
+    size: 'large',
+    color: '#3C9165'
   },
   profileInfoRank: {
     flexDirection: 'row',
@@ -406,6 +439,7 @@ const ProfileStack = createStackNavigator(
 const ScannerStack = createStackNavigator(
   {
     Scanner: ScannerScreen,
+    Loading: LoadingScreen,
   },
   {
     initialRouteName: 'Scanner'
