@@ -38,11 +38,9 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* foodprinttrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* foodprinttrackerTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		5AECB481BFBA44C78B281EC3 /* ReactNativeSocialShareTests.xctest in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6344E248FF47B1AF3C6B16 /* ReactNativeSocialShareTests.xctest */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8B74E78E42D3406F95A466C0 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8E3BBC76CD4309A7DC238A /* libRNCamera.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		BBA4C3929E2C488BB22C01DF /* ReactNativeSocialShare.app in Frameworks */ = {isa = PBXBuildFile; fileRef = 798CCF455B494D0599BE5E00 /* ReactNativeSocialShare.app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -405,8 +403,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				8B74E78E42D3406F95A466C0 /* libRNCamera.a in Frameworks */,
-				BBA4C3929E2C488BB22C01DF /* ReactNativeSocialShare.app in Frameworks */,
-				5AECB481BFBA44C78B281EC3 /* ReactNativeSocialShareTests.xctest in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
