@@ -9,6 +9,7 @@ import ReceiptListComponent from './ReceiptListComponent';
 import ReceiptItemsListComponent from './ReceiptItemsListComponent';
 import ReceiptItemIngredientsComponent from './ReceiptItemIngredientsComponent';
 import { RNCamera, FaceDetector } from 'react-native-camera';
+import { shareOnFacebook, shareOnTwitter } from 'react-native-social-share';
 
 const ApolloBoost = require('apollo-boost');
 const ApolloClient = ApolloBoost.default;
@@ -290,6 +291,15 @@ class HomeScreen extends React.Component {
         <RkText style={styles.logEntryDate}>
           {Moment(achievement.timestamp).format('MMMM DD, YYYY')}
         </RkText>
+        <RkButton style={styles.sharingButton} onPress={() => {
+          shareOnTwitter({
+              'text':'I reached an achievement regaring the environmental footprint of my grocery shoppings!',
+            },
+            (results) => {
+              console.log(results);
+            }
+          );
+        }}>📣</RkButton>
       </View>
     )
   }
@@ -402,17 +412,24 @@ let styles = RkStyleSheet.create(theme => ({
     paddingVertical: 10,
     borderBottomColor: '#DBDADD',
     borderBottomWidth: 0.5,
+    flex: 1,
+    justifyContent: 'space-between'
   },
   logEntryNoBorder: {
     paddingHorizontal: 20,
     paddingVertical: 10,
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   logEntryValue: {
-    fontWeight: '500'
+    fontWeight: '500',
+    alignSelf: 'flex-start',
   },
   logEntryDate: {
     marginTop: 3,
     color: '#8E8E93',
+    alignSelf: 'flex-start',
   },
   container: {
     flex: 1,
@@ -432,6 +449,13 @@ let styles = RkStyleSheet.create(theme => ({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20
+  },
+  sharingButton: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#1DA1F2',
+    alignSelf: 'flex-end',
+    marginTop: -40,
   }
 }));
 
